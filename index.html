@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Café del Toro — Café y Artesanías | Morelia, Michoacán</title>
+<meta name="description" content="En Del Toro fusionamos la pasión por el café y la riqueza de las artesanías locales. Allende 528, Centro, Morelia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600&family=Space+Grotesk:wght@300;400;500;600;700&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23155A18'/><text x='50' y='58' font-size='34' font-weight='700' text-anchor='middle' fill='%23F6E08A' font-family='Georgia,serif'>DT</text><rect x='30' y='66' width='40' height='2' fill='%23F6E08A' opacity='.6'/></svg>">
+
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --verde:#155A18;
+  --verde-osc:#0C3A0E;
+  --verde-cla:#2E7D32;
+  --crema:#F7F1E4;
+  --crema-2:#FBF7EE;
+  --rosa:#F3CBD2;
+  --amarillo:#F6E08A;
+  --terra:#B4562F;
+  --tinta:#1A1712;
+  --tinta-2:#4A4237;
+  --oro:#C8973F;
+  --linea:rgba(26,23,18,.12);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Space Grotesk',system-ui,sans-serif;
+  --mano:'Caveat',cursive;
+  --sombra:0 4px 24px rgba(12,58,14,.10);
+  --sombra-alt:0 18px 50px rgba(12,58,14,.18);
+  --r:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--crema);color:var(--tinta);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--verde);color:#fff}
+
+/* ============ MOSAICO (piso del local) ============ */
+.mosaico{
+  background-color:var(--crema-2);
+  background-image:
+    radial-gradient(circle at 0 0, transparent 14px, var(--rosa) 15px, transparent 16px),
+    radial-gradient(circle at 100% 0, transparent 14px, var(--rosa) 15px, transparent 16px),
+    radial-gradient(circle at 0 100%, transparent 14px, var(--rosa) 15px, transparent 16px),
+    radial-gradient(circle at 100% 100%, transparent 14px, var(--rosa) 15px, transparent 16px),
+    radial-gradient(circle at 50% 50%, var(--verde) 3px, transparent 4px),
+    radial-gradient(circle at 50% 50%, transparent 11px, #9CC9DC 12px, transparent 13px),
+    radial-gradient(circle at 50% 50%, transparent 21px, var(--oro) 22px, transparent 23px);
+  background-size:60px 60px;
+  opacity:1;
+}
+
+/* ============ LOADER ============ */
+#loader{position:fixed;inset:0;background:var(--verde);z-index:9999;display:grid;place-items:center;transition:opacity .7s ease,visibility .7s}
+#loader.off{opacity:0;visibility:hidden}
+#loader .lg{text-align:center;color:var(--crema)}
+#loader .lg-t{display:block;font-family:var(--serif);font-weight:900;font-size:2.6rem;letter-spacing:.24em;
+  text-indent:.24em;animation:fadeUp .9s ease both}
+#loader .lg-s{display:block;margin-top:10px;font-size:.55rem;letter-spacing:.5em;text-indent:.5em;
+  color:var(--amarillo);animation:fadeUp .9s .15s ease both}
+#loader .lg-r{display:block;height:1px;background:var(--amarillo);margin:18px auto 0;
+  animation:grow 1.4s .3s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes grow{from{width:0;opacity:0}to{width:150px;opacity:.8}}
+
+/* ============ LOGO ============ */
+.logo-wrap{display:inline-flex;align-items:center;gap:12px}
+.logo-tx{font-family:var(--serif);font-weight:800;letter-spacing:.2em;font-size:1.15rem;line-height:1;
+  display:inline-block;padding-bottom:7px;border-bottom:1px solid currentColor;position:relative}
+.logo-tx small{display:block;font-family:var(--sans);font-weight:500;font-size:.47rem;letter-spacing:.34em;
+  opacity:.72;margin-top:6px;padding-bottom:2px}
+.logo-tx::after{content:'';position:absolute;left:50%;bottom:-3px;transform:translateX(-50%);
+  width:5px;height:5px;background:var(--amarillo);border-radius:50%}
+nav .logo-tx{border-color:rgba(247,241,228,.4)}
+footer .logo-tx{border-color:rgba(247,241,228,.3)}
+
+/* ============ NAV ============ */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:18px 5vw;display:flex;align-items:center;justify-content:space-between;
+  transition:all .4s cubic-bezier(.4,0,.2,1);color:var(--crema)}
+nav.solid{background:rgba(21,90,24,.96);backdrop-filter:blur(14px);padding:12px 5vw;box-shadow:0 6px 30px rgba(0,0,0,.18)}
+.nav-links{display:flex;gap:30px;align-items:center}
+.nav-links a{font-size:.82rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;position:relative;padding:4px 0;opacity:.9;transition:opacity .25s}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1.5px;background:var(--amarillo);transition:width .3s}
+.nav-links a:hover{opacity:1}
+.nav-links a:hover::after{width:100%}
+.nav-acc{display:flex;align-items:center;gap:14px}
+.btn-cart{position:relative;width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(247,241,228,.35);display:grid;place-items:center;transition:all .3s}
+.btn-cart:hover{background:var(--amarillo);border-color:var(--amarillo);color:var(--verde-osc)}
+.cart-badge{position:absolute;top:-4px;right:-4px;background:var(--terra);color:#fff;font-size:.62rem;font-weight:700;min-width:19px;height:19px;border-radius:10px;display:grid;place-items:center;padding:0 5px;transform:scale(0);transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.cart-badge.on{transform:scale(1)}
+.burger{display:none;flex-direction:column;gap:5px;padding:8px}
+.burger span{width:24px;height:2px;background:currentColor;transition:.3s;border-radius:2px}
+
+/* ============ HERO ============ */
+header{min-height:100svh;position:relative;display:grid;place-items:center;text-align:center;background:var(--verde);color:var(--crema);overflow:hidden;padding:120px 5vw 80px}
+header::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse at 20% 20%,rgba(46,125,50,.55),transparent 55%),
+  radial-gradient(ellipse at 85% 75%,rgba(200,151,63,.18),transparent 50%)}
+.hero-grain{position:absolute;inset:0;opacity:.055;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero-in{position:relative;z-index:2;max-width:900px}
+.hero-eyebrow{font-family:var(--mano);font-size:1.6rem;color:var(--amarillo);margin-bottom:6px;opacity:0;animation:up .9s .3s forwards}
+.hero-in h1{font-family:var(--serif);font-weight:900;font-size:clamp(3.2rem,10vw,7.5rem);line-height:.92;letter-spacing:-.02em;margin:10px 0 6px;opacity:0;animation:up 1s .45s forwards}
+.hero-sub{font-size:.78rem;letter-spacing:.45em;text-transform:uppercase;opacity:0;animation:up 1s .6s forwards;color:rgba(247,241,228,.7)}
+.hero-p{max-width:560px;margin:28px auto 0;font-size:1.06rem;font-weight:300;color:rgba(247,241,228,.85);opacity:0;animation:up 1s .75s forwards}
+.hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px;opacity:0;animation:up 1s .9s forwards}
+@keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:2;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(247,241,228,.55);display:flex;flex-direction:column;align-items:center;gap:10px}
+.scroll-hint i{width:1px;height:38px;background:linear-gradient(var(--amarillo),transparent);animation:sc 2s infinite}
+@keyframes sc{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ============ BOTONES ============ */
+.btn{padding:14px 30px;border-radius:100px;font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;transition:all .3s cubic-bezier(.4,0,.2,1);display:inline-flex;align-items:center;gap:9px;white-space:nowrap}
+.btn-oro{background:var(--amarillo);color:var(--verde-osc)}
+.btn-oro:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(246,224,138,.32)}
+.btn-ghost{border:1.5px solid rgba(247,241,228,.4);color:var(--crema)}
+.btn-ghost:hover{background:var(--crema);color:var(--verde);border-color:var(--crema)}
+.btn-verde{background:var(--verde);color:var(--crema)}
+.btn-verde:hover{background:var(--verde-osc);transform:translateY(-2px);box-shadow:var(--sombra-alt)}
+.btn-wa{background:#25D366;color:#fff}
+.btn-wa:hover{background:#1EBE5A;transform:translateY(-2px);box-shadow:0 12px 30px rgba(37,211,102,.35)}
+.btn-line{border:1.5px solid var(--verde);color:var(--verde)}
+.btn-line:hover{background:var(--verde);color:var(--crema)}
+
+/* ============ SECCIONES ============ */
+section{padding:110px 5vw;position:relative}
+.wrap{max-width:1240px;margin:0 auto}
+.sec-head{text-align:center;max-width:680px;margin:0 auto 62px}
+.tag{font-family:var(--mano);font-size:1.5rem;color:var(--terra);display:block;margin-bottom:2px}
+.sec-head h2{font-family:var(--serif);font-weight:800;font-size:clamp(2.1rem,5vw,3.4rem);line-height:1.08;letter-spacing:-.02em;color:var(--verde-osc)}
+.sec-head p{margin-top:16px;color:var(--tinta-2);font-weight:300;font-size:1.02rem}
+.rule{width:54px;height:2px;background:var(--oro);margin:20px auto 0;border-radius:2px}
+
+/* ============ HISTORIA ============ */
+#historia{background:var(--crema-2)}
+.hist{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.hist-tx h2{font-family:var(--serif);font-size:clamp(2rem,4.4vw,3.1rem);font-weight:800;line-height:1.1;color:var(--verde-osc);margin-bottom:20px;letter-spacing:-.02em}
+.hist-tx p{color:var(--tinta-2);font-weight:300;margin-bottom:16px}
+.hist-tx p strong{font-weight:600;color:var(--verde)}
+.hist-stats{display:flex;gap:36px;margin-top:34px;flex-wrap:wrap}
+.stat b{display:block;font-family:var(--serif);font-size:2.4rem;font-weight:800;color:var(--verde);line-height:1}
+.stat span{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--tinta-2)}
+.hist-img{position:relative;aspect-ratio:4/5;border-radius:var(--r);overflow:hidden;box-shadow:var(--sombra-alt)}
+.hist-img img{width:100%;height:100%;object-fit:cover}
+.hist-img .ph{position:absolute;inset:0}
+.hist-badge{position:absolute;bottom:-24px;left:-24px;background:var(--verde);color:var(--crema);padding:22px 26px;border-radius:var(--r);box-shadow:var(--sombra-alt);max-width:210px}
+.hist-badge b{font-family:var(--mano);font-size:1.7rem;color:var(--amarillo);display:block;line-height:1.1}
+.hist-badge span{font-size:.72rem;opacity:.8;font-weight:300}
+
+/* ============ FILTROS ============ */
+.filtros{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-bottom:44px}
+.filtro{padding:9px 20px;border-radius:100px;border:1.5px solid var(--linea);font-size:.74rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-2);transition:all .25s}
+.filtro:hover{border-color:var(--verde);color:var(--verde)}
+.filtro.on{background:var(--verde);border-color:var(--verde);color:var(--crema)}
+
+/* ============ GRID PRODUCTOS ============ */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:30px}
+.card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--sombra);transition:transform .45s cubic-bezier(.4,0,.2,1),box-shadow .45s;position:relative;display:flex;flex-direction:column;animation:fadein .5s backwards}
+@keyframes fadein{from{opacity:0;transform:translateY(18px)}}
+.card:hover{transform:translateY(-8px);box-shadow:var(--sombra-alt)}
+.card-img{aspect-ratio:4/5;position:relative;overflow:hidden;background:var(--crema-2);cursor:pointer}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.4,0,.2,1)}
+.card:hover .card-img img{transform:scale(1.07)}
+.card-cat{position:absolute;top:12px;left:12px;background:rgba(21,90,24,.92);color:var(--crema);font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:100px;backdrop-filter:blur(6px);z-index:2}
+.card-uni{position:absolute;top:12px;right:12px;background:var(--terra);color:#fff;font-size:.56rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 11px;border-radius:100px;z-index:2}
+.card-body{padding:20px 20px 22px;flex:1;display:flex;flex-direction:column}
+.card-body h3{font-family:var(--serif);font-size:1.24rem;font-weight:700;line-height:1.2;color:var(--verde-osc);margin-bottom:6px}
+.card-body p{font-size:.83rem;color:var(--tinta-2);font-weight:300;line-height:1.5;flex:1;margin-bottom:16px}
+.card-foot{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.precio{font-family:var(--serif);font-size:1.4rem;font-weight:800;color:var(--verde)}
+.btn-add{background:var(--verde);color:var(--crema);width:42px;height:42px;border-radius:50%;display:grid;place-items:center;transition:all .3s;flex-shrink:0}
+.btn-add:hover{background:var(--amarillo);color:var(--verde-osc);transform:rotate(90deg) scale(1.08)}
+.btn-add.done{background:var(--terra);transform:none}
+
+/* ===== LÁMINA ILUSTRADA (estado sin fotografía) ===== */
+.ph{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;padding-bottom:46px;
+  background:var(--pl-bg,var(--verde));isolation:isolate}
+.ph::before{content:'';position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse at 30% 18%,rgba(255,255,255,.16),transparent 62%),
+    radial-gradient(ellipse at 78% 88%,rgba(0,0,0,.32),transparent 58%)}
+.ph::after{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.10;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.ph .pl-art{position:relative;z-index:1;width:78%;max-width:230px;height:auto;
+  color:var(--pl-ink,rgba(246,224,138,.92));
+  filter:drop-shadow(0 6px 18px rgba(0,0,0,.3))}
+.ph .pl-cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:34px 16px 14px;text-align:center;
+  background:linear-gradient(transparent,rgba(0,0,0,.42))}
+.ph .pl-cap b{display:block;font-family:var(--serif);font-weight:700;font-size:.9rem;line-height:1.25;
+  color:rgba(255,255,255,.95);letter-spacing:.01em}
+.ph .pl-cap span{display:block;margin-top:5px;font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--pl-ink,rgba(246,224,138,.9));font-weight:600}
+.ph .pl-frame{position:absolute;inset:11px;z-index:2;border:1px solid rgba(246,224,138,.34);border-radius:10px;pointer-events:none}
+.ph .pl-frame::before,.ph .pl-frame::after{content:'';position:absolute;width:13px;height:13px;border:1.6px solid var(--pl-ink,rgba(246,224,138,.85))}
+.ph .pl-frame::before{top:-1px;left:-1px;border-right:0;border-bottom:0;border-radius:10px 0 0 0}
+.ph .pl-frame::after{bottom:-1px;right:-1px;border-left:0;border-top:0;border-radius:0 0 10px 0}
+/* paletas por categoría */
+.ph[data-p="textiles"]{--pl-bg:linear-gradient(150deg,#3A1F4D,#1B0E28 62%,#0E0716)}
+.ph[data-p="barro"]{--pl-bg:linear-gradient(150deg,#A44E28,#5E2413 65%,#2E0F07)}
+.ph[data-p="joyeria"]{--pl-bg:linear-gradient(150deg,#14486B,#0A2438 62%,#04121D)}
+.ph[data-p="accesorios"]{--pl-bg:linear-gradient(150deg,#8A6A2A,#4A3512 64%,#241906)}
+.ph[data-p="verde"]{--pl-bg:linear-gradient(150deg,#2E7D32,#124015 62%,#08230A)}
+.ph[data-p="cafe"]{--pl-bg:linear-gradient(150deg,#6B4A2C,#33210F 62%,#1A1006)}
+.ph[data-p="rosa"]{--pl-bg:linear-gradient(150deg,#D98996,#8E4351 60%,#4A1E27);--pl-ink:rgba(255,240,214,.95)}
+/* miniaturas (carrito / panel) */
+.ci-img .ph .pl-cap,.pn-th .ph .pl-cap,.ci-img .ph .pl-frame,.pn-th .ph .pl-frame{display:none}
+.ci-img .ph,.pn-th .ph{padding-bottom:0}
+.ci-img .ph .pl-art,.pn-th .ph .pl-art{width:66%}
+
+/* ============ MENU / PIZARRÓN ============ */
+#cafe{background:var(--verde-osc);color:var(--crema)}
+#cafe .sec-head h2{color:var(--crema)}
+#cafe .sec-head p{color:rgba(247,241,228,.72)}
+#cafe .tag{color:var(--amarillo)}
+.pizarra{background:#1E1B16;border-radius:22px;padding:clamp(28px,5vw,58px);position:relative;
+  box-shadow:0 30px 70px rgba(0,0,0,.45),inset 0 0 90px rgba(0,0,0,.5);
+  border:14px solid #6B4A2C;
+  background-image:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.045),transparent 60%)}
+.pizarra::before{content:'';position:absolute;inset:0;border-radius:8px;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");opacity:.06}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,64px);position:relative;z-index:2}
+.menu-col h3{font-family:var(--mano);font-size:2.1rem;color:var(--amarillo);margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.menu-col h3::after{content:'';flex:1;height:1px;background:rgba(246,224,138,.3)}
+.menu-item{display:flex;align-items:baseline;gap:8px;padding:11px 0;border-bottom:1px dashed rgba(247,241,228,.13)}
+.menu-item:last-child{border-bottom:none}
+.mi-tx{flex-shrink:0}
+.mi-tx b{font-family:var(--mano);font-size:1.32rem;font-weight:600;color:var(--crema);letter-spacing:.01em}
+.mi-tx span{display:block;font-size:.7rem;font-weight:300;color:rgba(247,241,228,.5);letter-spacing:.04em;margin-top:-2px}
+.mi-dots{flex:1;border-bottom:1px dotted rgba(247,241,228,.22);transform:translateY(-4px);min-width:16px}
+.mi-pr{font-family:var(--mano);font-size:1.4rem;font-weight:700;color:var(--amarillo);flex-shrink:0}
+.mi-add{width:30px;height:30px;border-radius:50%;border:1px solid rgba(246,224,138,.4);color:var(--amarillo);display:grid;place-items:center;font-size:1rem;transition:.25s;flex-shrink:0;margin-left:4px}
+.mi-add:hover{background:var(--amarillo);color:var(--verde-osc)}
+.mi-add.done{background:var(--terra);border-color:var(--terra);color:#fff}
+.cafe-nota{text-align:center;margin-top:34px;font-family:var(--mano);font-size:1.35rem;color:rgba(247,241,228,.6)}
+
+/* ============ AMBIENTE ============ */
+#ambiente{background:var(--crema-2)}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:16px}
+.gal figure{position:relative;overflow:hidden;border-radius:14px;box-shadow:var(--sombra);cursor:pointer}
+.gal figure:nth-child(1){grid-column:span 2;grid-row:span 2}
+.gal figure:nth-child(4){grid-column:span 2}
+.gal figure img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.gal figure:hover img{transform:scale(1.08)}
+.gal figcaption{position:absolute;inset:auto 0 0 0;padding:26px 18px 14px;background:linear-gradient(transparent,rgba(12,58,14,.85));color:var(--crema);font-family:var(--mano);font-size:1.2rem;opacity:0;transition:opacity .4s}
+.gal figure:hover figcaption{opacity:1}
+
+/* ============ VISITA ============ */
+#visita{background:var(--verde);color:var(--crema)}
+#visita .sec-head h2{color:var(--crema)}
+#visita .tag{color:var(--amarillo)}
+.vis{display:grid;grid-template-columns:1fr 1.15fr;gap:54px;align-items:stretch}
+.vis-info{display:flex;flex-direction:column;gap:24px}
+.vi{display:flex;gap:16px;align-items:flex-start;padding-bottom:22px;border-bottom:1px solid rgba(247,241,228,.14)}
+.vi:last-of-type{border-bottom:none}
+.vi-ic{width:44px;height:44px;border-radius:50%;background:rgba(246,224,138,.14);display:grid;place-items:center;flex-shrink:0;color:var(--amarillo)}
+.vi h4{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--amarillo);margin-bottom:5px;font-weight:600}
+.vi p{font-weight:300;color:rgba(247,241,228,.9);font-size:.96rem;line-height:1.55}
+.mapa{border-radius:var(--r);overflow:hidden;min-height:420px;box-shadow:var(--sombra-alt);border:3px solid rgba(247,241,228,.15)}
+.mapa iframe{width:100%;height:100%;min-height:420px;border:0;filter:grayscale(.25) contrast(1.05)}
+
+/* ============ FOOTER ============ */
+footer{background:var(--verde-osc);color:rgba(247,241,228,.72);padding:70px 5vw 26px}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:44px;max-width:1240px;margin:0 auto 44px}
+.foot h5{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--amarillo);margin-bottom:16px;font-weight:600}
+.foot ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.foot a{font-size:.9rem;font-weight:300;transition:color .25s}
+.foot a:hover{color:var(--amarillo)}
+.foot-lg p{margin-top:18px;font-size:.9rem;font-weight:300;max-width:300px;line-height:1.6}
+.socials{display:flex;gap:10px;margin-top:20px}
+.socials a{width:40px;height:40px;border-radius:50%;border:1px solid rgba(247,241,228,.2);display:grid;place-items:center;transition:.3s}
+.socials a:hover{background:var(--amarillo);color:var(--verde-osc);border-color:var(--amarillo);transform:translateY(-3px)}
+.foot-bot{max-width:1240px;margin:0 auto;padding-top:24px;border-top:1px solid rgba(247,241,228,.1);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:.72rem;opacity:.65}
+.foot-bot button{font-size:.72rem;opacity:.6;transition:opacity .25s;letter-spacing:.08em}
+.foot-bot button:hover{opacity:1;color:var(--amarillo)}
+
+/* ============ CARRITO ============ */
+.ov{position:fixed;inset:0;background:rgba(12,58,14,.5);backdrop-filter:blur(4px);z-index:1000;opacity:0;visibility:hidden;transition:.35s}
+.ov.on{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100vw);background:var(--crema);z-index:1001;transform:translateX(100%);transition:transform .45s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.2)}
+.drawer.on{transform:none}
+.dr-head{padding:24px 26px;border-bottom:1px solid var(--linea);display:flex;align-items:center;justify-content:space-between;background:var(--verde);color:var(--crema)}
+.dr-head h3{font-family:var(--serif);font-size:1.4rem;font-weight:700}
+.dr-close{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;transition:.25s;font-size:1.3rem}
+.dr-close:hover{background:rgba(255,255,255,.15);transform:rotate(90deg)}
+.dr-body{flex:1;overflow-y:auto;padding:18px 26px}
+.dr-empty{text-align:center;padding:70px 20px;color:var(--tinta-2)}
+.dr-empty b{font-family:var(--mano);font-size:1.7rem;color:var(--verde);display:block;margin-bottom:6px}
+.dr-empty span{font-size:.88rem;font-weight:300}
+.ci{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--linea);align-items:center}
+.ci-img{width:64px;height:64px;border-radius:10px;overflow:hidden;flex-shrink:0;position:relative;background:var(--crema-2)}
+.ci-img img{width:100%;height:100%;object-fit:cover}
+.ci-img .ph i{font-size:.6rem}
+.ci-img .ph::after{inset:4px;border-width:1px}
+.ci-tx{flex:1;min-width:0}
+.ci-tx b{display:block;font-family:var(--serif);font-size:.98rem;font-weight:700;color:var(--verde-osc);line-height:1.25;margin-bottom:3px}
+.ci-tx span{font-size:.82rem;color:var(--tinta-2);font-weight:500}
+.qty{display:flex;align-items:center;gap:6px;background:#fff;border-radius:100px;padding:3px;border:1px solid var(--linea)}
+.qty button{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;color:var(--verde);font-weight:700;transition:.2s;font-size:.95rem}
+.qty button:hover{background:var(--verde);color:var(--crema)}
+.qty b{min-width:18px;text-align:center;font-size:.85rem;font-weight:600}
+.ci-del{color:var(--tinta-2);opacity:.45;transition:.2s;padding:5px;font-size:1.05rem}
+.ci-del:hover{opacity:1;color:var(--terra)}
+.dr-foot{padding:22px 26px 26px;border-top:1px solid var(--linea);background:var(--crema-2)}
+.dr-total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}
+.dr-total span{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--tinta-2);font-weight:600}
+.dr-total b{font-family:var(--serif);font-size:2rem;font-weight:800;color:var(--verde)}
+.dr-foot .btn{width:100%;justify-content:center}
+.dr-nota{font-size:.68rem;text-align:center;color:var(--tinta-2);margin-top:11px;font-weight:300;line-height:1.5}
+
+/* ============ MODAL / LIGHTBOX ============ */
+.lb{position:fixed;inset:0;background:rgba(12,58,14,.94);z-index:1100;display:grid;place-items:center;padding:5vw;opacity:0;visibility:hidden;transition:.35s}
+.lb.on{opacity:1;visibility:visible}
+.lb img{max-width:90vw;max-height:86vh;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.lb-x{position:absolute;top:26px;right:30px;color:var(--crema);font-size:2rem;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;transition:.25s}
+.lb-x:hover{background:rgba(255,255,255,.14);transform:rotate(90deg)}
+
+/* ============ PANEL ADMIN ============ */
+.panel{position:fixed;inset:0;background:var(--crema);z-index:2000;display:none;flex-direction:column;overflow:hidden}
+.panel.on{display:flex}
+.pn-head{background:var(--verde-osc);color:var(--crema);padding:16px 26px;display:flex;align-items:center;justify-content:between;gap:20px;flex-wrap:wrap;justify-content:space-between}
+.pn-head h3{font-family:var(--serif);font-size:1.2rem;display:flex;align-items:center;gap:12px}
+.pn-head .pill{font-size:.6rem;background:var(--terra);padding:4px 10px;border-radius:100px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;font-family:var(--sans)}
+.pn-acts{display:flex;gap:9px;flex-wrap:wrap}
+.pn-btn{padding:9px 16px;border-radius:8px;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;transition:.25s;border:1px solid rgba(247,241,228,.25)}
+.pn-btn:hover{background:rgba(247,241,228,.12)}
+.pn-btn.pr{background:var(--amarillo);color:var(--verde-osc);border-color:var(--amarillo)}
+.pn-btn.pr:hover{filter:brightness(1.08)}
+.pn-btn.dg{background:var(--terra);border-color:var(--terra);color:#fff}
+.pn-tabs{display:flex;gap:2px;background:var(--verde);padding:0 26px;overflow-x:auto}
+.pn-tab{padding:13px 20px;font-size:.74rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:rgba(247,241,228,.6);border-bottom:2.5px solid transparent;transition:.25s;white-space:nowrap}
+.pn-tab:hover{color:var(--crema)}
+.pn-tab.on{color:var(--amarillo);border-color:var(--amarillo)}
+.pn-body{flex:1;overflow-y:auto;padding:30px 26px 60px}
+.pn-wrap{max-width:1100px;margin:0 auto}
+.pn-pane{display:none}
+.pn-pane.on{display:block;animation:fadein .35s}
+.pn-sec{background:#fff;border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:var(--sombra)}
+.pn-sec h4{font-family:var(--serif);font-size:1.15rem;color:var(--verde-osc);margin-bottom:4px}
+.pn-sec .hint{font-size:.78rem;color:var(--tinta-2);font-weight:300;margin-bottom:18px}
+.fld{margin-bottom:15px}
+.fld label{display:block;font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-2);margin-bottom:6px}
+.fld input,.fld textarea,.fld select{width:100%;padding:11px 13px;border:1.5px solid var(--linea);border-radius:9px;background:var(--crema-2);transition:.25s;font-size:.92rem}
+.fld input:focus,.fld textarea:focus,.fld select:focus{outline:none;border-color:var(--verde);background:#fff;box-shadow:0 0 0 3px rgba(21,90,24,.08)}
+.fld textarea{min-height:88px;resize:vertical;line-height:1.6}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.pn-list{display:flex;flex-direction:column;gap:10px}
+.pn-row{display:flex;gap:14px;align-items:center;background:var(--crema-2);border:1.5px solid var(--linea);border-radius:12px;padding:12px;transition:.25s}
+.pn-row:hover{border-color:var(--verde-cla);background:#fff}
+.pn-th{width:56px;height:56px;border-radius:9px;overflow:hidden;flex-shrink:0;position:relative;background:var(--crema);cursor:pointer;border:1.5px dashed var(--linea);display:grid;place-items:center}
+.pn-th img{width:100%;height:100%;object-fit:cover}
+.pn-th .cam{font-size:1.1rem;opacity:.35}
+.pn-th:hover{border-color:var(--verde)}
+.pn-row-tx{flex:1;min-width:0}
+.pn-row-tx b{display:block;font-family:var(--serif);font-size:1rem;color:var(--verde-osc);line-height:1.3}
+.pn-row-tx span{font-size:.75rem;color:var(--tinta-2)}
+.pn-row-ac{display:flex;gap:6px;flex-shrink:0}
+.ic-btn{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;border:1.5px solid var(--linea);background:#fff;transition:.25s;font-size:.9rem}
+.ic-btn:hover{border-color:var(--verde);background:var(--verde);color:var(--crema)}
+.ic-btn.dg:hover{border-color:var(--terra);background:var(--terra)}
+.pn-editor{display:none;background:var(--crema-2);border:2px solid var(--verde);border-radius:12px;padding:20px;margin-bottom:16px}
+.pn-editor.on{display:block;animation:fadein .3s}
+.pn-tot{display:flex;gap:26px;flex-wrap:wrap;margin-bottom:20px}
+.pn-tot div{background:#fff;border-radius:12px;padding:16px 22px;box-shadow:var(--sombra);flex:1;min-width:130px}
+.pn-tot b{display:block;font-family:var(--serif);font-size:1.9rem;color:var(--verde);line-height:1}
+.pn-tot span{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-2);font-weight:600}
+
+/* LOGIN */
+.login{position:fixed;inset:0;background:var(--verde-osc);z-index:2100;display:none;place-items:center;padding:5vw}
+.login.on{display:grid}
+.login-box{background:var(--crema);border-radius:22px;padding:44px 38px;max-width:400px;width:100%;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4);animation:up .5s}
+.login-box h3{font-family:var(--serif);font-size:1.6rem;color:var(--verde-osc);margin:16px 0 4px}
+.login-box p{font-size:.84rem;color:var(--tinta-2);font-weight:300;margin-bottom:26px}
+.pins{display:flex;gap:9px;justify-content:center;margin-bottom:20px}
+.pins input{width:48px;height:58px;text-align:center;font-family:var(--serif);font-size:1.6rem;font-weight:800;color:var(--verde);border:2px solid var(--linea);border-radius:11px;background:#fff;transition:.25s}
+.pins input:focus{outline:none;border-color:var(--verde);box-shadow:0 0 0 4px rgba(21,90,24,.1);transform:scale(1.05)}
+.pins.err input{border-color:var(--terra);animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.login-msg{font-size:.78rem;color:var(--terra);min-height:20px;margin-bottom:12px;font-weight:500}
+.login-box .btn{width:100%;justify-content:center}
+.login-x{margin-top:14px;font-size:.74rem;color:var(--tinta-2);text-decoration:underline;opacity:.7}
+
+/* TOAST */
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--verde-osc);color:var(--crema);padding:13px 26px;border-radius:100px;font-size:.85rem;font-weight:500;z-index:3000;transition:transform .4s cubic-bezier(.34,1.56,.64,1);box-shadow:var(--sombra-alt);display:flex;align-items:center;gap:9px;max-width:90vw}
+.toast.on{transform:translateX(-50%) translateY(0)}
+
+/* FAB WhatsApp */
+.fab{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;z-index:800;box-shadow:0 10px 30px rgba(37,211,102,.4);transition:.3s;animation:bob 3s ease-in-out infinite}
+.fab:hover{transform:scale(1.1)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:960px){
+  .nav-links{position:fixed;top:0;right:0;bottom:0;width:min(300px,80vw);background:var(--verde-osc);flex-direction:column;justify-content:center;gap:28px;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);padding:40px;box-shadow:-20px 0 50px rgba(0,0,0,.3)}
+  .nav-links.on{transform:none}
+  .nav-links a{font-size:1rem}
+  .burger{display:flex;z-index:2}
+  .burger.on span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.on span:nth-child(2){opacity:0}
+  .burger.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .hist,.vis{grid-template-columns:1fr;gap:44px}
+  .hist-img{max-width:440px;margin:0 auto}
+  .menu-grid{grid-template-columns:1fr}
+  .gal{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}
+  .gal figure:nth-child(1){grid-column:span 2;grid-row:span 2}
+  .gal figure:nth-child(4){grid-column:span 2}
+  .foot{grid-template-columns:1fr;gap:30px}
+  section{padding:76px 5vw}
+  .f2,.f3{grid-template-columns:1fr}
+  .hist-badge{left:0;bottom:-16px}
+}
+@media(max-width:520px){
+  .grid{grid-template-columns:1fr;gap:22px}
+  .pizarra{border-width:8px}
+  .hero-cta .btn{width:100%;justify-content:center}
+  .pn-tot div{min-width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="lg">
+    <span class="lg-t">DEL TORO</span>
+    <span class="lg-s">CAFÉ Y ARTESANÍAS</span>
+    <i class="lg-r"></i>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#top" class="logo-wrap" aria-label="Café del Toro">
+    <span class="logo-tx" id="navName">DEL TORO<small>CAFÉ Y ARTESANÍAS</small></span>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#historia">Historia</a>
+    <a href="#artesanias">Artesanías</a>
+    <a href="#cafe">Café</a>
+    <a href="#ambiente">El Local</a>
+    <a href="#visita">Visítanos</a>
+  </div>
+  <div class="nav-acc">
+    <button class="btn-cart" id="cartBtn" aria-label="Carrito">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    <button class="burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header id="top">
+  <div class="hero-grain"></div>
+  <div class="hero-in">
+    <span class="hero-eyebrow" id="heroEyebrow">Morelia, Michoacán</span>
+    <h1 id="heroTitle">Café del Toro</h1>
+    <p class="hero-sub" id="heroSub">Café de altura · Artesanía viva</p>
+    <p class="hero-p" id="heroDesc">Fusionamos la pasión por el café y la riqueza de las artesanías locales. Cada taza y cada pieza cuenta la historia de las manos que la hicieron.</p>
+    <div class="hero-cta">
+      <a href="#artesanias" class="btn btn-oro">Ver artesanías
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#cafe" class="btn btn-ghost">Nuestro menú</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Descubre</span><i></i></div>
+</header>
+
+<!-- HISTORIA -->
+<section id="historia">
+  <div class="wrap hist">
+    <div class="hist-tx reveal">
+      <span class="tag">Nuestra historia</span>
+      <h2 id="histTitle">Dos pasiones bajo un mismo techo</h2>
+      <div id="histBody">
+        <p>En <strong>Del Toro</strong> creemos que un buen café y una buena artesanía tienen algo en común: <strong>alguien les dedicó tiempo</strong>. Por eso decidimos juntarlos en un solo lugar, en pleno Centro de Morelia.</p>
+        <p>Aquí puedes tomarte un capuchino mientras admiras un rebozo de plumas, unos aretes de barro pintados a mano o una catrina que tardó semanas en terminarse. Todo lo que ves está a la venta, y todo viene de <strong>manos michoacanas</strong>.</p>
+        <p>No somos una tienda de souvenirs. Somos una vitrina para artesanos reales, con un café decente de por medio.</p>
+      </div>
+      <div class="hist-stats">
+        <div class="stat"><b id="st1">100%</b><span>Hecho a mano</span></div>
+        <div class="stat"><b id="st2">Local</b><span>Artesanos michoacanos</span></div>
+        <div class="stat"><b id="st3">Único</b><span>Piezas irrepetibles</span></div>
+      </div>
+    </div>
+    <div class="hist-img reveal" id="histImgBox">
+      <div class="ph"><i>Foto del local<br>local.jpg</i></div>
+      <div class="hist-badge"><b>Allende 528</b><span>Centro Histórico, Morelia</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTESANIAS -->
+<section id="artesanias" class="mosaico">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">Piezas únicas</span>
+      <h2 id="artTitle">Artesanías</h2>
+      <p id="artDesc">Cada pieza es irrepetible: hecha a mano, en cantidades pequeñas. Lo que ves aquí es lo que hay en la tienda hoy.</p>
+      <div class="rule"></div>
+    </div>
+    <div class="filtros" id="filtros"></div>
+    <div class="grid" id="gridArt"></div>
+  </div>
+</section>
+
+<!-- CAFE -->
+<section id="cafe">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">De la barra</span>
+      <h2 id="cafeTitle">Nuestro Café</h2>
+      <p id="cafeDesc">Grano de altura de Michoacán y Chiapas. Preparado como se debe, sin prisas.</p>
+      <div class="rule"></div>
+    </div>
+    <div class="pizarra reveal">
+      <div class="menu-grid" id="menuGrid"></div>
+      <p class="cafe-nota" id="cafeNota">✦ Todos nuestros cafés se pueden llevar para el camino ✦</p>
+    </div>
+  </div>
+</section>
+
+<!-- AMBIENTE -->
+<section id="ambiente">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">El local</span>
+      <h2>Paredes rosas, piso de mosaico</h2>
+      <p>Un rincón del Centro donde el café huele bien y las paredes cuentan historias.</p>
+      <div class="rule"></div>
+    </div>
+    <div class="gal reveal" id="gal"></div>
+  </div>
+</section>
+
+<!-- VISITA -->
+<section id="visita">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">Te esperamos</span>
+      <h2>Visítanos</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="vis reveal">
+      <div class="vis-info">
+        <div class="vi">
+          <div class="vi-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><h4>Dirección</h4><p id="vDir">Allende 528, Centro Histórico<br>Morelia, Michoacán, C.P. 58000</p></div>
+        </div>
+        <div class="vi">
+          <div class="vi-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <div><h4>Horarios</h4><p id="vHor">Lunes a Sábado · 9:00 – 21:00<br>Domingo · 10:00 – 18:00</p></div>
+        </div>
+        <div class="vi">
+          <div class="vi-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></svg></div>
+          <div><h4>Teléfono / WhatsApp</h4><p><a id="vTel" href="#">443 254 6775</a></p></div>
+        </div>
+        <div class="vi">
+          <div class="vi-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></div>
+          <div><h4>Instagram</h4><p><a id="vIg" href="https://instagram.com/cafe.del.toro" target="_blank" rel="noopener">@cafe.del.toro</a></p></div>
+        </div>
+        <a class="btn btn-wa" id="waVisita" href="#" target="_blank" rel="noopener" style="margin-top:6px">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.5-.3zM12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2z"/></svg>
+          Escríbenos por WhatsApp
+        </a>
+      </div>
+      <div class="mapa">
+        <iframe id="mapaFrame" src="https://www.google.com/maps?q=Allende%20528,%20Centro,%20Morelia,%20Michoac%C3%A1n%2058000&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación Café del Toro"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot">
+    <div class="foot-lg">
+      <div class="logo-wrap" style="color:var(--crema)">
+        <span class="logo-tx" style="color:var(--crema)">DEL TORO<small>CAFÉ Y ARTESANÍAS</small></span>
+      </div>
+      <p id="footDesc">Café de altura y artesanía michoacana en el corazón de Morelia. Cada pieza tiene nombre y apellido.</p>
+      <div class="socials">
+        <a href="https://instagram.com/cafe.del.toro" target="_blank" rel="noopener" aria-label="Instagram"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>
+        <a href="#" id="footWa" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.5-.3zM12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2z"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <h5>Explora</h5>
+      <ul>
+        <li><a href="#historia">Nuestra historia</a></li>
+        <li><a href="#artesanias">Artesanías</a></li>
+        <li><a href="#cafe">Menú de café</a></li>
+        <li><a href="#ambiente">El local</a></li>
+        <li><a href="#visita">Cómo llegar</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Contacto</h5>
+      <ul>
+        <li id="fDir">Allende 528, Centro, Morelia</li>
+        <li><a id="fTel" href="#">443 254 6775</a></li>
+        <li><a href="https://instagram.com/cafe.del.toro" target="_blank" rel="noopener">@cafe.del.toro</a></li>
+        <li id="fHor">Lun–Sáb 9:00–21:00</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span>© <span id="year"></span> Café del Toro · Morelia, Michoacán. Todos los derechos reservados.</span>
+    <button id="adminLink">Acceso interno</button>
+  </div>
+</footer>
+
+<a class="fab" id="fabWa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.5-.3zM12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2z"/></svg>
+</a>
+
+<!-- CARRITO -->
+<div class="ov" id="ov"></div>
+<aside class="drawer" id="drawer">
+  <div class="dr-head">
+    <h3>Tu pedido</h3>
+    <button class="dr-close" id="drClose">&times;</button>
+  </div>
+  <div class="dr-body" id="drBody"></div>
+  <div class="dr-foot">
+    <div class="dr-total"><span>Total</span><b id="drTotal">$0</b></div>
+    <button class="btn btn-wa" id="drSend">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.5-.3zM12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2z"/></svg>
+      Enviar pedido por WhatsApp
+    </button>
+    <p class="dr-nota">Te confirmamos disponibilidad y apartamos tus piezas. Las artesanías son únicas: se van rápido.</p>
+  </div>
+</aside>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb"><button class="lb-x" id="lbX">&times;</button><img id="lbImg" src="" alt=""></div>
+
+<!-- LOGIN -->
+<div class="login" id="login">
+  <div class="login-box">
+    <span class="logo-tx" style="color:var(--verde);font-size:1.3rem">DEL TORO<small style="color:var(--tinta-2)">CAFÉ Y ARTESANÍAS</small></span>
+    <h3 style="margin-top:22px">Acceso interno</h3>
+    <p>Ingresa tu PIN para administrar el sitio</p>
+    <div class="pins" id="pins">
+      <input type="password" inputmode="numeric" maxlength="1" autocomplete="off">
+      <input type="password" inputmode="numeric" maxlength="1" autocomplete="off">
+      <input type="password" inputmode="numeric" maxlength="1" autocomplete="off">
+      <input type="password" inputmode="numeric" maxlength="1" autocomplete="off">
+      <input type="password" inputmode="numeric" maxlength="1" autocomplete="off">
+      <input type="password" inputmode="numeric" maxlength="1" autocomplete="off">
+    </div>
+    <div class="login-msg" id="loginMsg"></div>
+    <button class="btn btn-verde" id="loginBtn">Entrar</button>
+    <div><button class="login-x" id="loginX">Volver al sitio</button></div>
+  </div>
+</div>
+
+<!-- PANEL -->
+<div class="panel" id="panel">
+  <div class="pn-head">
+    <h3>Panel de administración <span class="pill">Café del Toro</span></h3>
+    <div class="pn-acts">
+      <button class="pn-btn" id="pnPreview">Ver sitio</button>
+      <button class="pn-btn" id="pnExport">Respaldar</button>
+      <button class="pn-btn" id="pnImport">Restaurar</button>
+      <button class="pn-btn dg" id="pnReset">Restablecer</button>
+      <button class="pn-btn pr" id="pnSave">Guardar cambios</button>
+      <button class="pn-btn" id="pnOut">Salir</button>
+    </div>
+  </div>
+  <div class="pn-tabs">
+    <button class="pn-tab on" data-pane="pArt">Artesanías</button>
+    <button class="pn-tab" data-pane="pMenu">Menú de café</button>
+    <button class="pn-tab" data-pane="pFotos">Fotos del local</button>
+    <button class="pn-tab" data-pane="pTextos">Textos del sitio</button>
+    <button class="pn-tab" data-pane="pDatos">Contacto y horarios</button>
+  </div>
+  <div class="pn-body"><div class="pn-wrap">
+
+    <!-- ARTESANIAS -->
+    <div class="pn-pane on" id="pArt">
+      <div class="pn-tot">
+        <div><b id="tArt">0</b><span>Artesanías</span></div>
+        <div><b id="tCats">0</b><span>Categorías</span></div>
+        <div><b id="tVal">$0</b><span>Valor del catálogo</span></div>
+      </div>
+      <div class="pn-sec">
+        <h4>Catálogo de artesanías</h4>
+        <p class="hint">Haz clic en la miniatura para cambiar la foto. Los cambios se guardan en este navegador.</p>
+        <button class="btn btn-verde" id="addArt" style="margin-bottom:16px">+ Nueva artesanía</button>
+        <div class="pn-editor" id="edArt">
+          <div class="f2">
+            <div class="fld"><label>Nombre de la pieza</label><input id="eaName" placeholder="Ej. Rebozo de plumas"></div>
+            <div class="fld"><label>Categoría</label><input id="eaCat" list="catList" placeholder="Ej. Textiles"><datalist id="catList"></datalist></div>
+          </div>
+          <div class="fld"><label>Descripción</label><textarea id="eaDesc" placeholder="Cuéntale al cliente de qué está hecha, quién la hizo, qué la hace especial..."></textarea></div>
+          <div class="f3">
+            <div class="fld"><label>Precio (MXN)</label><input id="eaPrice" type="number" min="0" placeholder="1200"></div>
+            <div class="fld"><label>Etiqueta</label><select id="eaTag"><option value="">Ninguna</option><option value="Pieza única">Pieza única</option><option value="Nuevo">Nuevo</option><option value="Última pieza">Última pieza</option><option value="Más vendido">Más vendido</option></select></div>
+            <div class="fld"><label>Visible en el sitio</label><select id="eaOn"><option value="1">Sí, mostrar</option><option value="0">No, ocultar</option></select></div>
+          </div>
+          <div class="fld"><label>Foto</label>
+            <div style="display:flex;gap:12px;align-items:center">
+              <div class="pn-th" id="eaThumb" style="width:76px;height:76px"><span class="cam">📷</span></div>
+              <div style="flex:1"><input id="eaImg" placeholder="fotos/mi-foto.jpg  — o sube una imagen dando clic en el recuadro"></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:9px;margin-top:6px">
+            <button class="btn btn-verde" id="eaSave">Guardar pieza</button>
+            <button class="btn btn-line" id="eaCancel">Cancelar</button>
+          </div>
+        </div>
+        <div class="pn-list" id="listArt"></div>
+      </div>
+    </div>
+
+    <!-- MENU -->
+    <div class="pn-pane" id="pMenu">
+      <div class="pn-sec">
+        <h4>Menú de café</h4>
+        <p class="hint">Edita nombres, descripciones y precios. Todo se refleja en el pizarrón del sitio.</p>
+        <div class="f2" style="margin-bottom:18px">
+          <div class="fld"><label>Título columna izquierda</label><input id="mcA" value="Bebidas Calientes"></div>
+          <div class="fld"><label>Título columna derecha</label><input id="mcB" value="Bebidas Frías"></div>
+        </div>
+        <div style="display:flex;gap:9px;margin-bottom:16px;flex-wrap:wrap">
+          <button class="btn btn-verde" id="addM0">+ Bebida caliente</button>
+          <button class="btn btn-line" id="addM1">+ Bebida fría</button>
+        </div>
+        <div class="pn-list" id="listMenu"></div>
+      </div>
+    </div>
+
+    <!-- FOTOS -->
+    <div class="pn-pane" id="pFotos">
+      <div class="pn-sec">
+        <h4>Foto principal (sección Historia)</h4>
+        <p class="hint">La foto grande que aparece junto al texto "Dos pasiones bajo un mismo techo".</p>
+        <div style="display:flex;gap:14px;align-items:center">
+          <div class="pn-th" id="thHist" style="width:90px;height:110px"><span class="cam">📷</span></div>
+          <div style="flex:1"><div class="fld"><label>Ruta o imagen</label><input id="inHist" placeholder="fotos/local.jpg"></div></div>
+        </div>
+      </div>
+      <div class="pn-sec">
+        <h4>Galería "El Local"</h4>
+        <p class="hint">Hasta 6 fotos del ambiente. La primera se muestra más grande.</p>
+        <button class="btn btn-verde" id="addGal" style="margin-bottom:16px">+ Agregar foto</button>
+        <div class="pn-list" id="listGal"></div>
+      </div>
+    </div>
+
+    <!-- TEXTOS -->
+    <div class="pn-pane" id="pTextos">
+      <div class="pn-sec">
+        <h4>Portada</h4>
+        <div class="f2">
+          <div class="fld"><label>Texto pequeño arriba</label><input id="txEyebrow"></div>
+          <div class="fld"><label>Título principal</label><input id="txTitle"></div>
+        </div>
+        <div class="fld"><label>Subtítulo</label><input id="txSub"></div>
+        <div class="fld"><label>Párrafo de bienvenida</label><textarea id="txDesc"></textarea></div>
+      </div>
+      <div class="pn-sec">
+        <h4>Historia</h4>
+        <div class="fld"><label>Título</label><input id="txHistTitle"></div>
+        <div class="fld"><label>Texto (un párrafo por línea)</label><textarea id="txHistBody" style="min-height:150px"></textarea></div>
+        <div class="f3">
+          <div class="fld"><label>Dato 1</label><input id="txSt1"></div>
+          <div class="fld"><label>Dato 2</label><input id="txSt2"></div>
+          <div class="fld"><label>Dato 3</label><input id="txSt3"></div>
+        </div>
+      </div>
+      <div class="pn-sec">
+        <h4>Secciones</h4>
+        <div class="f2">
+          <div class="fld"><label>Título Artesanías</label><input id="txArtTitle"></div>
+          <div class="fld"><label>Título Café</label><input id="txCafeTitle"></div>
+        </div>
+        <div class="fld"><label>Descripción Artesanías</label><textarea id="txArtDesc"></textarea></div>
+        <div class="fld"><label>Descripción Café</label><textarea id="txCafeDesc"></textarea></div>
+        <div class="fld"><label>Nota del pizarrón</label><input id="txCafeNota"></div>
+      </div>
+      <div class="pn-sec">
+        <h4>Pie de página</h4>
+        <div class="fld"><label>Descripción del negocio</label><textarea id="txFootDesc"></textarea></div>
+      </div>
+    </div>
+
+    <!-- DATOS -->
+    <div class="pn-pane" id="pDatos">
+      <div class="pn-sec">
+        <h4>Contacto</h4>
+        <div class="f2">
+          <div class="fld"><label>WhatsApp (10 dígitos, sin espacios)</label><input id="dWa" placeholder="4432546775"></div>
+          <div class="fld"><label>Usuario de Instagram</label><input id="dIg" placeholder="cafe.del.toro"></div>
+        </div>
+        <div class="fld"><label>Dirección (usa Enter para saltar de línea)</label><textarea id="dDir" style="min-height:70px"></textarea></div>
+        <div class="fld"><label>Horarios (usa Enter para saltar de línea)</label><textarea id="dHor" style="min-height:70px"></textarea></div>
+      </div>
+      <div class="pn-sec">
+        <h4>Mapa</h4>
+        <p class="hint">Escribe la dirección tal cual la busca Google Maps.</p>
+        <div class="fld"><label>Dirección para el mapa</label><input id="dMapa"></div>
+      </div>
+      <div class="pn-sec">
+        <h4>Mensaje de WhatsApp</h4>
+        <p class="hint">Lo que se escribe antes de la lista de productos cuando un cliente manda su pedido.</p>
+        <div class="fld"><label>Encabezado del pedido</label><input id="dWaMsg"></div>
+      </div>
+    </div>
+
+  </div></div>
+</div>
+
+<input type="file" id="filePick" accept="image/*" hidden>
+<input type="file" id="jsonPick" accept="application/json" hidden>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==================== DATOS BASE ==================== */
+const KEY='cafedeltoro_v1';
+const PIN='237123';
+
+const DEF={
+  wa:'4432546775',
+  ig:'cafe.del.toro',
+  dir:'Allende 528, Centro Histórico\nMorelia, Michoacán, C.P. 58000',
+  hor:'Lunes a Sábado · 9:00 – 21:00\nDomingo · 10:00 – 18:00',
+  mapa:'Allende 528, Centro, Morelia, Michoacán 58000',
+  waMsg:'¡Hola Café del Toro! 👋 Me interesa este pedido:',
+  tx:{
+    eyebrow:'Morelia, Michoacán',
+    title:'Café del Toro',
+    sub:'Café de altura · Artesanía viva',
+    desc:'Fusionamos la pasión por el café y la riqueza de las artesanías locales. Cada taza y cada pieza cuenta la historia de las manos que la hicieron.',
+    histTitle:'Dos pasiones bajo un mismo techo',
+    histBody:'En **Del Toro** creemos que un buen café y una buena artesanía tienen algo en común: **alguien les dedicó tiempo**. Por eso decidimos juntarlos en un solo lugar, en pleno Centro de Morelia.\nAquí puedes tomarte un capuchino mientras admiras un rebozo de plumas, unos aretes de barro pintados a mano o una catrina que tardó semanas en terminarse. Todo lo que ves está a la venta, y todo viene de **manos michoacanas**.\nNo somos una tienda de souvenirs. Somos una vitrina para artesanos reales, con un café decente de por medio.',
+    st1:'100%',st2:'Local',st3:'Único',
+    artTitle:'Artesanías',
+    artDesc:'Cada pieza es irrepetible: hecha a mano, en cantidades pequeñas. Lo que ves aquí es lo que hay en la tienda hoy.',
+    cafeTitle:'Nuestro Café',
+    cafeDesc:'Grano de altura de Michoacán y Chiapas. Preparado como se debe, sin prisas.',
+    cafeNota:'✦ Todos nuestros cafés se pueden llevar para el camino ✦',
+    footDesc:'Café de altura y artesanía michoacana en el corazón de Morelia. Cada pieza tiene nombre y apellido.'
+  },
+  histImg:'https://images.unsplash.com/photo-1553855994-da8397e155c7?w=1200&q=80&auto=format&fit=crop',
+  gal:[
+    {img:'https://images.unsplash.com/photo-1553855994-da8397e155c7?w=1200&q=80&auto=format&fit=crop',cap:'Nuestro rincón en el Centro'},
+    {img:'https://images.unsplash.com/photo-1558274849-f9fa5f16dee8?w=1200&q=80&auto=format&fit=crop',cap:'El pizarrón del día'},
+    {img:'https://images.unsplash.com/photo-1610206349499-c932c3b3aacb?w=1200&q=80&auto=format&fit=crop',cap:'Vitrina de artesanías'},
+    {img:'https://images.unsplash.com/photo-1469631423273-6995642a6a40?w=1200&q=80&auto=format&fit=crop',cap:'Barra de café'},
+    {img:'https://images.unsplash.com/photo-1768102365643-2afa10b70f31?w=1200&q=80&auto=format&fit=crop',cap:'Detalles hechos a mano'},
+    {img:'https://images.unsplash.com/photo-1559644705-15d30e582900?w=1200&q=80&auto=format&fit=crop',cap:'Piso de mosaico original'}
+  ],
+  art:[
+    {id:1,name:'Rebozo de Plumas Amatista',cat:'Textiles',desc:'Rebozo negro tejido en telar con líneas lila, rematado con plumas teñidas en tonos morado y verde iridiscente. Pieza de exhibición, tejida y emplumada a mano.',price:3200,tag:'Pieza única',img:'https://images.unsplash.com/photo-1541185398144-7fbad0468164?w=900&q=80&auto=format&fit=crop',on:1},
+    {id:2,name:'Rebozo de Plumas Tierra',cat:'Textiles',desc:'Versión en café tabaco con rayas crema y plumas naturales en cobre, ocre y verde botella. Cae pesado y abriga de verdad.',price:3200,tag:'Pieza única',img:'https://images.unsplash.com/photo-1511891915601-464d4b49c7ce?w=900&q=80&auto=format&fit=crop',on:1},
+    {id:3,name:'Catrina de Barro — Girasoles',cat:'Barro',desc:'Catrina modelada y pintada a mano con rebozo azul y delantal de girasoles. Detalles en oro y filigrana de barro aplicada pieza por pieza.',price:1450,tag:'Pieza única',img:'https://images.unsplash.com/photo-1730654440014-d250d78fd62c?w=900&q=80&auto=format&fit=crop',on:1},
+    {id:4,name:'Collar Ágata Azul',cat:'Joyería',desc:'Collar de alambre trabajado a mano con cristales azules, tornasol y una laja de ágata azul como centro. Ninguno sale igual al anterior.',price:890,tag:'Pieza única',img:'https://images.unsplash.com/photo-1648176504967-5e4983ae8f6b?w=900&q=80&auto=format&fit=crop',on:1},
+    {id:5,name:'Aretes Mariposa Monarca',cat:'Joyería',desc:'Mariposa monarca de barro pintada a mano con borla de seda negra y remate en alambre dorado. Ligeros a pesar del tamaño.',price:290,tag:'Más vendido',img:'https://images.unsplash.com/photo-1613545553204-2f699d26b75d?w=900&q=80&auto=format&fit=crop',on:1},
+    {id:6,name:'Aretes Catrina con Fleco',cat:'Joyería',desc:'Calaverita de barro con corona de flores amarillas sobre abanico de fleco multicolor. Los favoritos de la tienda.',price:260,tag:'',img:'https://images.unsplash.com/photo-1763347119605-7c7c0494e1bb?w=900&q=80&auto=format&fit=crop',on:1},
+    {id:7,name:'Aretes Cruz de Talavera',cat:'Joyería',desc:'Cruz de barro en verde con punteado tipo talavera y fleco largo naranja. Se ven de lejos, en el buen sentido.',price:260,tag:'',img:'https://images.unsplash.com/photo-1605345064053-fb28455861b7?w=900&q=80&auto=format&fit=crop',on:1},
+    {id:8,name:'Aretes Corazón Alado',cat:'Joyería',desc:'Corazón de barro lila con ángel pintado a mano y abanico de fleco rosa palo. Delicados y muy morelianos.',price:240,tag:'',img:'https://images.unsplash.com/photo-1512032915910-144d53456b7e?w=900&q=80&auto=format&fit=crop',on:1},
+    {id:9,name:'Aretes Ala de Monarca',cat:'Joyería',desc:'Ala de monarca en barro con punteado blanco y base dorada. Versión mini de nuestro clásico.',price:220,tag:'Nuevo',img:'https://images.unsplash.com/photo-1629224316810-9d8805b95e76?w=900&q=80&auto=format&fit=crop',on:1},
+    {id:10,name:'Blusa Bordada Artesanal',cat:'Textiles',desc:'Blusa de manta blanca con bordado geométrico en lila sobre pecho y mangas. Bordada a mano, talla única holgada.',price:1180,tag:'',img:'https://images.unsplash.com/photo-1632754724733-a220cd51b7d2?w=900&q=80&auto=format&fit=crop',on:1},
+    {id:11,name:'Sombrero de Palma Tejido',cat:'Accesorios',desc:'Sombrero de palma tejido a mano con ala ancha y ribete negro. El que ves colgado en la tienda.',price:750,tag:'',img:'https://images.unsplash.com/photo-1692952565854-e3354ccedbb1?w=900&q=80&auto=format&fit=crop',on:1},
+    {id:12,name:'Bolsa de Yute Artesanal',cat:'Accesorios',desc:'Bolsa cruzada de yute con correa ajustable y detalle tejido. Aguanta el mandado y se ve bien.',price:480,tag:'',img:'https://images.unsplash.com/photo-1622153093514-4dd0078ac132?w=900&q=80&auto=format&fit=crop',on:1}
+  ],
+  menuTitles:['Bebidas Calientes','Bebidas Frías'],
+  menu:[
+    {id:101,col:0,name:'Expresso Doble',desc:'',price:59},
+    {id:102,col:0,name:'Capuchino',desc:'',price:56},
+    {id:103,col:0,name:'Latte',desc:'',price:55},
+    {id:104,col:0,name:'Marshmallow Capuchino',desc:'',price:69},
+    {id:105,col:0,name:'Macchiato',desc:'Expresso cortado',price:69},
+    {id:106,col:0,name:'Americano',desc:'',price:45},
+    {id:107,col:0,name:'Té en Tetera',desc:'Durazno-jengibre · Limón-jengibre · Frutos rojos',price:60},
+    {id:108,col:0,name:'Tisana',desc:'Maracuyá tropical · Frutos rojos',price:45},
+    {id:109,col:0,name:'Chocolate',desc:'40% cacao',price:60},
+    {id:201,col:1,name:'Cold Brew',desc:'',price:65},
+    {id:202,col:1,name:'Iced Latte',desc:'',price:60},
+    {id:203,col:1,name:'Frapuchino',desc:'',price:69},
+    {id:204,col:1,name:'Moka Frappé',desc:'',price:75},
+    {id:205,col:1,name:'Caramel Frappé',desc:'',price:75},
+    {id:206,col:1,name:'Affogato',desc:'Expresso sobre helado',price:70},
+    {id:207,col:1,name:'Malteada',desc:'',price:70},
+    {id:208,col:1,name:'Frappé',desc:'',price:65},
+    {id:209,col:1,name:'Soda Italiana',desc:'',price:55}
+  ]
+};
+
+/* ==================== ESTADO ==================== */
+let D=load(), cart=[], editArt=null, picker=null;
+
+function clone(o){return JSON.parse(JSON.stringify(o));}
+function load(){
+  try{const s=localStorage.getItem(KEY);if(s){const p=JSON.parse(s);return deep(clone(DEF),p);}}catch(e){}
+  return clone(DEF);
+}
+function deep(base,over){
+  for(const k in over){
+    if(over[k]&&typeof over[k]==='object'&&!Array.isArray(over[k])) base[k]=deep(base[k]||{},over[k]);
+    else base[k]=over[k];
+  }
+  return base;
+}
+function save(){localStorage.setItem(KEY,JSON.stringify(D));}
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const mx=n=>'$'+Number(n||0).toLocaleString('es-MX');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Date.now()+Math.floor(Math.random()*999);
+const waLink=t=>'https://wa.me/52'+String(D.wa).replace(/\D/g,'')+'?text='+encodeURIComponent(t||'¡Hola Café del Toro! Me gustaría más información 😊');
+
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2600);}
+
+/* ==================== LÁMINAS ILUSTRADAS ==================== */
+const S=(c)=>`<svg class="pl-art" viewBox="0 0 200 250" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${c}</svg>`;
+const fringe=(y,x1,x2,n,len)=>{let o='';for(let i=0;i<=n;i++){const x=x1+(x2-x1)*i/n;o+=`<path d="M${x} ${y}v${len+(i%2?3:0)}"/>`;}return o;};
+const pluma=(x,y,h,r)=>`<g transform="translate(${x} ${y}) rotate(${r})"><path d="M0 0c-4.5 ${h*.3} -4.5 ${h*.7} 0 ${h}c4.5 ${-h*.3} 4.5 ${-h*.7} 0 ${-h}z" opacity=".9"/><path d="M0 2v${h-4}" opacity=".45"/></g>`;
+const ART={
+  rebozo:S(`<path d="M40 46h120" stroke-width="2.2" opacity=".9"/><path d="M52 42v8M148 42v8" opacity=".5"/>
+    <path d="M44 48L100 178 156 48"/><path d="M62 48L100 136 138 48" opacity=".35"/><path d="M80 48L100 96 120 48" opacity=".25"/>
+    <path d="M56 78q44 12 88 0" opacity=".3"/><path d="M68 108q32 10 64 0" opacity=".3"/><path d="M80 138q20 8 40 0" opacity=".3"/>
+    ${Array.from({length:9},(_,i)=>{const t=(i+1)/10,x=44+56*t,y=48+130*t;return `<path d="M${x.toFixed(1)} ${y.toFixed(1)}l-13 9" opacity=".75"/>`}).join('')}
+    ${Array.from({length:9},(_,i)=>{const t=(i+1)/10,x=156-56*t,y=48+130*t;return `<path d="M${x.toFixed(1)} ${y.toFixed(1)}l13 9" opacity=".75"/>`}).join('')}
+    ${pluma(74,150,16,-24)}${pluma(88,166,18,-10)}${pluma(102,172,19,2)}${pluma(116,164,18,14)}${pluma(130,146,16,26)}
+    <path d="M100 178v22" opacity=".5"/>${pluma(100,200,20,0)}`),
+  catrina:S(`<circle cx="82" cy="30" r="5" opacity=".9"/><circle cx="100" cy="23" r="5.5" opacity=".9"/><circle cx="118" cy="30" r="5" opacity=".9"/>
+    <path d="M100 34c-16 0-28 13-28 29 0 11 5 20 12 25v8h32v-8c7-5 12-14 12-25 0-16-12-29-28-29z"/>
+    <circle cx="89" cy="61" r="6.5"/><circle cx="111" cy="61" r="6.5"/><path d="M100 68l-4.5 9h9z"/>
+    <path d="M86 86h28" opacity=".8"/><path d="M93 81v7M100 81v7M107 81v7" opacity=".55"/>
+    <path d="M75 50q-13 14-13 40t5 44" opacity=".9"/><path d="M125 50q13 14 13 40t-5 44" opacity=".9"/>
+    <path d="M64 74q9 5 0 10M64 92q9 5 0 10M65 110q9 5 0 10M136 74q-9 5 0 10M136 92q-9 5 0 10M135 110q-9 5 0 10" opacity=".5"/>
+    <path d="M84 96h32l8 20H76z" opacity=".9"/>
+    <path d="M76 116q-4 46-24 100h96q-20-54-24-100"/><path d="M52 216q48 12 96 0" opacity=".9"/>
+    <path d="M94 118q-3 48-8 96M106 118q3 48 8 96" opacity=".28"/>
+    <path d="M66 154q34 10 68 0M58 186q42 12 84 0" opacity=".28"/>
+    <path d="M100 122q-15 10-16 42t3 50h26q5-18 3-50t-16-42z" opacity=".8"/>
+    <path d="M100 142v66" opacity=".4"/>
+    <path d="M100 156q-9-8-9-15M100 156q9-8 9-15M100 182q-9-8-9-15M100 182q9-8 9-15" opacity=".55"/>
+    <circle cx="100" cy="142" r="3.6"/><circle cx="100" cy="168" r="3.6"/><circle cx="100" cy="194" r="3.6"/>`),
+  aretes:S(`<g><path d="M62 46q-9 9 0 18" opacity=".8"/><path d="M62 64v8"/>
+    <path d="M62 72c-16 0-26 12-26 25s10 25 26 25 26-12 26-25-10-25-26-25z"/>
+    <path d="M46 84q16-8 32 0M40 100h44M46 114q16 8 32 0" opacity=".45"/>
+    <circle cx="62" cy="97" r="7" opacity=".7"/>
+    ${fringe(122,42,82,8,44)}</g>
+    <g><path d="M138 46q-9 9 0 18" opacity=".8"/><path d="M138 64v8"/>
+    <path d="M138 72c-16 0-26 12-26 25s10 25 26 25 26-12 26-25-10-25-26-25z"/>
+    <path d="M122 84q16-8 32 0M116 100h44M122 114q16 8 32 0" opacity=".45"/>
+    <circle cx="138" cy="97" r="7" opacity=".7"/>
+    ${fringe(122,118,158,8,44)}</g>
+    <path d="M40 178h120" opacity=".3"/>`),
+  collar:S(`<path d="M62 42q0 62 38 62t38-62" opacity=".5"/>
+    <path d="M64 48q2 58 36 58t36-58"/>
+    ${Array.from({length:13},(_,i)=>{const t=i/12,x=64+(136-64)*t,y=48+Math.sin(Math.PI*t)*58;return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.4"/>`}).join('')}
+    <path d="M78 88q10 14 22 14t22-14" opacity=".45"/>
+    <circle cx="86" cy="98" r="6"/><circle cx="114" cy="98" r="6"/><circle cx="100" cy="106" r="5" opacity=".7"/>
+    <path d="M100 112l-16 26 16 56 16-56z"/>
+    <path d="M100 112v82M86 142h28M90 166h20" opacity=".4"/>
+    <path d="M84 138q16-10 32 0" opacity=".35"/>`),
+  blusa:S(`<path d="M100 46c-9 0-15 5-15 5l-33 16 10 30 14-5-4 96h56l-4-96 14 5 10-30-33-16s-6-5-15-5z"/>
+    <path d="M85 51q15 16 30 0" opacity=".7"/>
+    <path d="M100 68v20" opacity=".5"/>
+    <path d="M78 96h44M80 108h40M82 120h36" opacity=".45"/>
+    ${Array.from({length:7},(_,i)=>`<path d="M${80+i*7} 100l3.5 6 3.5-6-3.5-6z" opacity=".55"/>`).join('')}
+    <path d="M62 84l-6 20M138 84l6 20" opacity=".4"/>
+    <path d="M72 188h56" stroke-width="2"/>`),
+  sombrero:S(`<ellipse cx="100" cy="150" rx="80" ry="30"/>
+    <ellipse cx="100" cy="150" rx="62" ry="22" opacity=".35"/>
+    <path d="M62 146q0-58 38-58t38 58"/>
+    <ellipse cx="100" cy="88" rx="38" ry="13" opacity=".8"/>
+    <path d="M64 130q36 14 72 0" opacity=".7"/>
+    <path d="M64 122q36 14 72 0" opacity=".45"/>
+    <ellipse cx="100" cy="150" rx="80" ry="30" opacity=".25" transform="translate(0,6)"/>
+    <path d="M70 168q30 12 60 0" opacity=".3"/>
+    <circle cx="138" cy="126" r="5" opacity=".7"/>`),
+  bolsa:S(`<path d="M56 92h88l10 118H46z"/>
+    <path d="M78 92V72q0-22 22-22t22 22v20" opacity=".9"/>
+    <path d="M56 92h88" opacity=".5"/>
+    ${Array.from({length:6},(_,i)=>`<path d="M${58+i*17} 100l2 102" opacity=".22"/>`).join('')}
+    ${Array.from({length:4},(_,i)=>`<path d="M50 ${118+i*24}h100" opacity=".22"/>`).join('')}
+    <circle cx="100" cy="152" r="17" opacity=".8"/>
+    <path d="M100 135v34M83 152h34" opacity=".5"/>
+    <path d="M46 210h108" stroke-width="2.2"/>`),
+  cafe:S(`<path d="M52 104h96v40q0 34-34 34h-28q-34 0-34-34z"/>
+    <path d="M148 114h14q16 0 16 17t-16 17h-14" opacity=".9"/>
+    <ellipse cx="100" cy="104" rx="48" ry="12" opacity=".55"/>
+    <ellipse cx="100" cy="104" rx="34" ry="8" opacity=".3"/>
+    <path d="M40 196h120q0 12-12 12H52q-12 0-12-12z"/>
+    <path d="M86 78q-8-12 0-24M100 74q-8-14 0-28M114 78q-8-12 0-24" opacity=".65"/>
+    <path d="M76 138q24 10 48 0" opacity=".3"/>`),
+  local:S(`<path d="M36 210V96q0-46 64-46t64 46v114"/>
+    <path d="M36 210h128" stroke-width="2.2"/>
+    <path d="M100 50v160" opacity=".35"/>
+    <path d="M50 96q50-26 100 0" opacity=".35"/>
+    <path d="M44 134h112M44 172h112" opacity=".28"/>
+    <circle cx="100" cy="120" r="16" opacity=".55"/>
+    <path d="M100 104v32M84 120h32" opacity=".4"/>
+    <path d="M68 210v-30q0-14 14-14M132 210v-30q0-14-14-14" opacity=".5"/>
+    <path d="M100 166v44" opacity=".5"/>`),
+  pieza:S(`<circle cx="100" cy="128" r="60" opacity=".5"/><circle cx="100" cy="128" r="44"/>
+    ${Array.from({length:8},(_,i)=>{const a=i*Math.PI/4;return `<path d="M${(100+Math.cos(a)*44).toFixed(1)} ${(128+Math.sin(a)*44).toFixed(1)}L${(100+Math.cos(a)*60).toFixed(1)} ${(128+Math.sin(a)*60).toFixed(1)}" opacity=".5"/>`}).join('')}
+    <circle cx="100" cy="128" r="20" opacity=".8"/><circle cx="100" cy="128" r="7"/>`)
+};
+const PAL={textiles:'textiles',barro:'barro','joyería':'joyeria',joyeria:'joyeria',accesorios:'accesorios'};
+function artFor(name,cat){
+  const t=((name||'')+' '+(cat||'')).toLowerCase();
+  /* el objeto manda sobre el motivo: "Aretes Catrina" son aretes, no una catrina */
+  if(/arete|pendient|broquel/.test(t))return 'aretes';
+  if(/collar|gargantilla|dije|[áa]gata|pulsera/.test(t))return 'collar';
+  if(/rebozo|chal|poncho|manta|sarape|quechquemitl/.test(t))return 'rebozo';
+  if(/blusa|camis|huipil|vestido|bordad/.test(t))return 'blusa';
+  if(/sombrero|gorra/.test(t))return 'sombrero';
+  if(/bolsa|morral|mochila|cartera|monedero/.test(t))return 'bolsa';
+  if(/ambiente|local|pizarr|vitrina|mostrador|mosaico|rinc[oó]n|interior/.test(t))return 'local';
+  if(/catrina|calaver|figur|barro|cer[aá]mic|alebrije/.test(t))return 'catrina';
+  if(/caf[eé]|latte|frapp|chocolate|t[eé]|bebida|expresso|capuchino|americano|tisana|brew|soda|malteada|affogato|moka|taza|barra/.test(t))return 'cafe';
+  return 'pieza';
+}
+function palFor(cat,key){
+  const c=(cat||'').toLowerCase().trim();
+  if(PAL[c])return PAL[c];
+  if(key==='cafe')return 'cafe';
+  if(key==='local')return 'rosa';
+  return 'verde';
+}
+function plate(name,cat){
+  const k=artFor(name,cat), pal=palFor(cat,k);
+  return `<div class="ph" data-p="${pal}">${ART[k]}<div class="pl-frame"></div>
+    <div class="pl-cap"><b>${esc(name||'')}</b>${cat?`<span>${esc(cat)}</span>`:''}</div></div>`;
+}
+
+function imgHtml(src,alt,cat){
+  if(!src) return plate(alt,cat);
+  const id='px'+(++plate._n||(plate._n=1));
+  setTimeout(()=>{const im=document.getElementById(id);if(im&&!im.complete)return;},0);
+  return `<img id="${id}" src="${esc(src)}" alt="${esc(alt)}" loading="lazy" data-alt="${esc(alt)}" data-cat="${esc(cat||'')}" onerror="imgFail(this)">`;
+}
+function imgFail(im){
+  const p=im.parentNode; im.remove();
+  p.insertAdjacentHTML('afterbegin', plate(im.dataset.alt, im.dataset.cat));
+}
+window.imgFail=imgFail;
+
+/* ==================== RENDER SITIO ==================== */
+function renderAll(){renderTx();renderArt();renderMenu();renderGal();renderData();renderCart();}
+
+function renderTx(){
+  const t=D.tx;
+  $('#heroEyebrow').textContent=t.eyebrow;
+  $('#heroTitle').textContent=t.title;
+  $('#heroSub').textContent=t.sub;
+  $('#heroDesc').textContent=t.desc;
+  $('#histTitle').textContent=t.histTitle;
+  $('#histBody').innerHTML=String(t.histBody).split('\n').filter(Boolean)
+    .map(p=>'<p>'+esc(p).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')+'</p>').join('');
+  $('#st1').textContent=t.st1; $('#st2').textContent=t.st2; $('#st3').textContent=t.st3;
+  $('#artTitle').textContent=t.artTitle; $('#artDesc').textContent=t.artDesc;
+  $('#cafeTitle').textContent=t.cafeTitle; $('#cafeDesc').textContent=t.cafeDesc;
+  $('#cafeNota').textContent=t.cafeNota;
+  $('#footDesc').textContent=t.footDesc;
+  const hb=$('#histImgBox');
+  hb.querySelectorAll('img,.ph').forEach(n=>n.remove());
+  hb.insertAdjacentHTML('afterbegin',imgHtml(D.histImg,'Nuestro local','Ambiente'));
+  document.title=t.title+' — Café y Artesanías | Morelia, Michoacán';
+}
+
+let filtro='Todo';
+function renderArt(){
+  const vis=D.art.filter(a=>a.on!=0);
+  const cats=['Todo',...new Set(vis.map(a=>a.cat).filter(Boolean))];
+  $('#filtros').innerHTML=cats.map(c=>`<button class="filtro${c===filtro?' on':''}" data-c="${esc(c)}">${esc(c)}</button>`).join('');
+  $$('#filtros .filtro').forEach(b=>b.onclick=()=>{filtro=b.dataset.c;renderArt();});
+  const list=filtro==='Todo'?vis:vis.filter(a=>a.cat===filtro);
+  $('#gridArt').innerHTML=list.length?list.map((a,i)=>`
+    <article class="card" style="animation-delay:${i*.05}s">
+      <div class="card-img" data-lb="${esc(a.img||'')}">
+        ${imgHtml(a.img,a.name,a.cat)}
+        ${a.cat?`<span class="card-cat">${esc(a.cat)}</span>`:''}
+        ${a.tag?`<span class="card-uni">${esc(a.tag)}</span>`:''}
+      </div>
+      <div class="card-body">
+        <h3>${esc(a.name)}</h3>
+        <p>${esc(a.desc)}</p>
+        <div class="card-foot">
+          <span class="precio">${mx(a.price)}</span>
+          <button class="btn-add" data-add="${a.id}" data-t="art" aria-label="Agregar">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>`).join('')
+    :`<p style="grid-column:1/-1;text-align:center;color:var(--tinta-2);padding:50px">No hay piezas en esta categoría por ahora.</p>`;
+  bindAdd();bindLb();obs();
+}
+
+function renderMenu(){
+  const cols=[0,1].map(c=>{
+    const items=D.menu.filter(m=>m.col==c);
+    return `<div class="menu-col">
+      <h3>${esc(D.menuTitles[c])}</h3>
+      ${items.map(m=>`<div class="menu-item">
+        <div class="mi-tx"><b>${esc(m.name)}</b>${m.desc?`<span>${esc(m.desc)}</span>`:''}</div>
+        <div class="mi-dots"></div>
+        <span class="mi-pr">${mx(m.price)}</span>
+        <button class="mi-add" data-add="${m.id}" data-t="menu" aria-label="Agregar">+</button>
+      </div>`).join('')}
+    </div>`;
+  }).join('');
+  $('#menuGrid').innerHTML=cols;
+  bindAdd();
+}
+
+function renderGal(){
+  $('#gal').innerHTML=D.gal.slice(0,6).map(g=>`
+    <figure data-lb="${esc(g.img||'')}">
+      ${imgHtml(g.img,g.cap,'Ambiente')}
+      <figcaption>${esc(g.cap)}</figcaption>
+    </figure>`).join('');
+  bindLb();
+}
+
+function renderData(){
+  const dirH=esc(D.dir).replace(/\n/g,'<br>'), horH=esc(D.hor).replace(/\n/g,'<br>');
+  $('#vDir').innerHTML=dirH; $('#vHor').innerHTML=horH;
+  const tel=String(D.wa).replace(/\D/g,'');
+  const telF=tel.replace(/(\d{3})(\d{3})(\d{4})/,'$1 $2 $3');
+  $('#vTel').textContent=telF; $('#vTel').href=waLink();
+  $('#fTel').textContent=telF; $('#fTel').href=waLink();
+  $('#fDir').textContent=D.dir.split('\n')[0];
+  $('#fHor').textContent=D.hor.split('\n')[0];
+  $('#vIg').textContent='@'+D.ig; $('#vIg').href='https://instagram.com/'+D.ig;
+  $('#waVisita').href=waLink(); $('#fabWa').href=waLink(); $('#footWa').href=waLink();
+  $('#mapaFrame').src='https://www.google.com/maps?q='+encodeURIComponent(D.mapa)+'&output=embed';
+  $('#navName').innerHTML='DEL TORO<small>CAFÉ Y ARTESANÍAS</small>';
+}
+
+/* ==================== CARRITO ==================== */
+function bindAdd(){
+  $$('[data-add]').forEach(b=>b.onclick=e=>{
+    e.stopPropagation();
+    const t=b.dataset.t, id=+b.dataset.add;
+    const src=(t==='art'?D.art:D.menu).find(x=>x.id===id);
+    if(!src) return;
+    add({id:t+'-'+id,name:src.name,price:src.price,img:src.img||'',cat:src.cat||'',t});
+    b.classList.add('done');
+    b.innerHTML=t==='menu'?'✓':`<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>`;
+    setTimeout(()=>{b.classList.remove('done');b.innerHTML=t==='menu'?'+':`<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>`;},1100);
+  });
+}
+function add(p){
+  const e=cart.find(c=>c.id===p.id);
+  if(e){e.q++;toast(p.name+' — ahora llevas '+e.q);}
+  else{cart.push({...p,q:1});toast('Agregado: '+p.name);}
+  renderCart();
+}
+function renderCart(){
+  const n=cart.reduce((s,c)=>s+c.q,0);
+  const bd=$('#cartBadge');bd.textContent=n;bd.classList.toggle('on',n>0);
+  if(!cart.length){
+    $('#drBody').innerHTML=`<div class="dr-empty"><b>Tu pedido está vacío</b><span>Agrega artesanías o algo de la barra y te lo apartamos.</span></div>`;
+  }else{
+    $('#drBody').innerHTML=cart.map(c=>`
+      <div class="ci">
+        <div class="ci-img">${imgHtml(c.img,c.name,c.t==='menu'?'Bebida':(c.cat||''))}</div>
+        <div class="ci-tx"><b>${esc(c.name)}</b><span>${mx(c.price)} c/u</span></div>
+        <div class="qty">
+          <button data-m="${c.id}">−</button><b>${c.q}</b><button data-p="${c.id}">+</button>
+        </div>
+        <button class="ci-del" data-d="${c.id}">×</button>
+      </div>`).join('');
+    $$('[data-p]').forEach(b=>b.onclick=()=>{cart.find(c=>c.id===b.dataset.p).q++;renderCart();});
+    $$('[data-m]').forEach(b=>b.onclick=()=>{const c=cart.find(x=>x.id===b.dataset.m);c.q--;if(c.q<1)cart=cart.filter(x=>x.id!==b.dataset.m);renderCart();});
+    $$('[data-d]').forEach(b=>b.onclick=()=>{cart=cart.filter(c=>c.id!==b.dataset.d);renderCart();});
+  }
+  $('#drTotal').textContent=mx(cart.reduce((s,c)=>s+c.price*c.q,0));
+}
+function openCart(o){$('#drawer').classList.toggle('on',o);$('#ov').classList.toggle('on',o);document.body.style.overflow=o?'hidden':'';}
+$('#cartBtn').onclick=()=>openCart(true);
+$('#drClose').onclick=()=>openCart(false);
+$('#ov').onclick=()=>openCart(false);
+$('#drSend').onclick=()=>{
+  if(!cart.length){toast('Agrega algo primero 😊');return;}
+  const art=cart.filter(c=>c.t==='art'), caf=cart.filter(c=>c.t==='menu');
+  let t=D.waMsg+'\n';
+  if(art.length){t+='\n*ARTESANÍAS*\n'+art.map(c=>`• ${c.name} ×${c.q} — ${mx(c.price*c.q)}`).join('\n')+'\n';}
+  if(caf.length){t+='\n*DE LA BARRA*\n'+caf.map(c=>`• ${c.name} ×${c.q} — ${mx(c.price*c.q)}`).join('\n')+'\n';}
+  t+='\n*TOTAL: '+mx(cart.reduce((s,c)=>s+c.price*c.q,0))+'*\n\n¿Me confirman disponibilidad? 🙌';
+  window.open(waLink(t),'_blank');
+};
+
+/* ==================== LIGHTBOX ==================== */
+function bindLb(){
+  $$('[data-lb]').forEach(el=>el.onclick=()=>{
+    const s=el.dataset.lb; if(!s||!el.querySelector('img')) return;
+    $('#lbImg').src=s; $('#lb').classList.add('on'); document.body.style.overflow='hidden';
+  });
+}
+$('#lbX').onclick=$('#lb').onclick=()=>{$('#lb').classList.remove('on');document.body.style.overflow='';};
+
+/* ==================== NAV / UI ==================== */
+const nav=$('#nav');
+addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>60));
+$('#burger').onclick=()=>{$('#navLinks').classList.toggle('on');$('#burger').classList.toggle('on');};
+$$('#navLinks a').forEach(a=>a.onclick=()=>{$('#navLinks').classList.remove('on');$('#burger').classList.remove('on');});
+$('#year').textContent=new Date().getFullYear();
+function obs(){
+  if(typeof IntersectionObserver!=='function'){$$('.reveal').forEach(e=>e.classList.add('in'));return;}
+  try{
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+    $$('.reveal:not(.in)').forEach(e=>io.observe(e));
+  }catch(e){$$('.reveal').forEach(x=>x.classList.add('in'));}
+}
+addEventListener('load',()=>setTimeout(()=>$('#loader').classList.add('off'),650));
+addEventListener('keydown',e=>{if(e.key==='Escape'){openCart(false);$('#lb').classList.remove('on');document.body.style.overflow='';}});
+
+/* ==================== LOGIN ==================== */
+$('#adminLink').onclick=()=>{$('#login').classList.add('on');setTimeout(()=>{const f=$('#pins input');if(f)f.focus();},120);};
+$('#loginX').onclick=()=>{$('#login').classList.remove('on');clearPins();};
+const pins=$$('#pins input');
+pins.forEach((p,i)=>{
+  p.oninput=()=>{p.value=p.value.replace(/\D/g,'');if(p.value&&i<5)pins[i+1].focus();if(pins.every(x=>x.value))tryLogin();};
+  p.onkeydown=e=>{if(e.key==='Backspace'&&!p.value&&i>0)pins[i-1].focus();if(e.key==='Enter')tryLogin();};
+  p.onpaste=e=>{e.preventDefault();const v=(e.clipboardData.getData('text')||'').replace(/\D/g,'').slice(0,6);v.split('').forEach((c,j)=>{if(pins[j])pins[j].value=c;});if(v.length===6)tryLogin();};
+});
+function clearPins(){pins.forEach(p=>p.value='');$('#loginMsg').textContent='';$('#pins').classList.remove('err');}
+function tryLogin(){
+  const v=pins.map(p=>p.value).join('');
+  if(v===PIN){$('#login').classList.remove('on');clearPins();openPanel();}
+  else{$('#pins').classList.add('err');$('#loginMsg').textContent='PIN incorrecto. Intenta de nuevo.';setTimeout(()=>{clearPins();pins[0].focus();},600);}
+}
+$('#loginBtn').onclick=tryLogin;
+
+/* ==================== PANEL ==================== */
+function openPanel(){$('#panel').classList.add('on');document.body.style.overflow='hidden';fillPanel();}
+function closePanel(){$('#panel').classList.remove('on');document.body.style.overflow='';}
+$('#pnOut').onclick=closePanel;
+$('#pnPreview').onclick=()=>{applyPanel();save();renderAll();closePanel();toast('Vista previa actualizada');};
+$$('.pn-tab').forEach(t=>t.onclick=()=>{
+  $$('.pn-tab').forEach(x=>x.classList.remove('on'));t.classList.add('on');
+  $$('.pn-pane').forEach(p=>p.classList.remove('on'));$('#'+t.dataset.pane).classList.add('on');
+});
+
+function fillPanel(){
+  const t=D.tx;
+  $('#txEyebrow').value=t.eyebrow;$('#txTitle').value=t.title;$('#txSub').value=t.sub;$('#txDesc').value=t.desc;
+  $('#txHistTitle').value=t.histTitle;$('#txHistBody').value=t.histBody;
+  $('#txSt1').value=t.st1;$('#txSt2').value=t.st2;$('#txSt3').value=t.st3;
+  $('#txArtTitle').value=t.artTitle;$('#txArtDesc').value=t.artDesc;
+  $('#txCafeTitle').value=t.cafeTitle;$('#txCafeDesc').value=t.cafeDesc;$('#txCafeNota').value=t.cafeNota;
+  $('#txFootDesc').value=t.footDesc;
+  $('#dWa').value=D.wa;$('#dIg').value=D.ig;$('#dDir').value=D.dir;$('#dHor').value=D.hor;$('#dMapa').value=D.mapa;$('#dWaMsg').value=D.waMsg;
+  $('#mcA').value=D.menuTitles[0];$('#mcB').value=D.menuTitles[1];
+  $('#inHist').value=(D.histImg||'').startsWith('data:')?'(imagen subida)':D.histImg||'';
+  thumb($('#thHist'),D.histImg);
+  pnArt();pnMenu();pnGal();stats();
+}
+function applyPanel(){
+  const t=D.tx;
+  t.eyebrow=$('#txEyebrow').value;t.title=$('#txTitle').value;t.sub=$('#txSub').value;t.desc=$('#txDesc').value;
+  t.histTitle=$('#txHistTitle').value;t.histBody=$('#txHistBody').value;
+  t.st1=$('#txSt1').value;t.st2=$('#txSt2').value;t.st3=$('#txSt3').value;
+  t.artTitle=$('#txArtTitle').value;t.artDesc=$('#txArtDesc').value;
+  t.cafeTitle=$('#txCafeTitle').value;t.cafeDesc=$('#txCafeDesc').value;t.cafeNota=$('#txCafeNota').value;
+  t.footDesc=$('#txFootDesc').value;
+  D.wa=$('#dWa').value.replace(/\D/g,'');D.ig=$('#dIg').value.replace('@','');
+  D.dir=$('#dDir').value;D.hor=$('#dHor').value;D.mapa=$('#dMapa').value;D.waMsg=$('#dWaMsg').value;
+  D.menuTitles=[$('#mcA').value,$('#mcB').value];
+  const hv=$('#inHist').value; if(hv&&hv!=='(imagen subida)') D.histImg=hv;
+}
+$('#pnSave').onclick=()=>{applyPanel();save();renderAll();toast('✓ Cambios guardados');};
+
+function thumb(el,src){
+  el.innerHTML=src?`<img src="${esc(src)}" alt="" onerror="this.parentNode.innerHTML='<span class=\\'cam\\'>📷</span>'">`:'<span class="cam">📷</span>';
+}
+function pick(cb){picker=cb;$('#filePick').value='';$('#filePick').click();}
+$('#filePick').onchange=e=>{
+  const f=e.target.files[0];if(!f||!picker)return;
+  if(f.size>2.4*1024*1024){toast('La imagen pesa mucho. Usa una menor a 2 MB.');return;}
+  const r=new FileReader();r.onload=()=>{picker(r.result);picker=null;};r.readAsDataURL(f);
+};
+
+/* --- artesanías --- */
+function stats(){
+  $('#tArt').textContent=D.art.length;
+  $('#tCats').textContent=new Set(D.art.map(a=>a.cat).filter(Boolean)).size;
+  $('#tVal').textContent=mx(D.art.reduce((s,a)=>s+ +(a.price||0),0));
+  $('#catList').innerHTML=[...new Set(D.art.map(a=>a.cat).filter(Boolean))].map(c=>`<option value="${esc(c)}">`).join('');
+}
+function pnArt(){
+  $('#listArt').innerHTML=D.art.map(a=>`
+    <div class="pn-row">
+      <div class="pn-th" data-th="${a.id}">${a.img?`<img src="${esc(a.img)}" onerror="this.parentNode.innerHTML='<span class=&quot;cam&quot;>📷</span>'">`:plate('',a.cat)}</div>
+      <div class="pn-row-tx">
+        <b>${esc(a.name)}</b>
+        <span>${esc(a.cat||'Sin categoría')} · ${mx(a.price)}${a.tag?' · '+esc(a.tag):''}${a.on==0?' · <em style="color:var(--terra)">oculto</em>':''}</span>
+      </div>
+      <div class="pn-row-ac">
+        <button class="ic-btn" data-up="${a.id}" title="Subir">↑</button>
+        <button class="ic-btn" data-dn="${a.id}" title="Bajar">↓</button>
+        <button class="ic-btn" data-ed="${a.id}" title="Editar">✎</button>
+        <button class="ic-btn dg" data-rm="${a.id}" title="Eliminar">🗑</button>
+      </div>
+    </div>`).join('')||'<p class="hint">Aún no hay artesanías. Agrega la primera.</p>';
+  $$('[data-th]').forEach(b=>b.onclick=()=>{const a=D.art.find(x=>x.id==b.dataset.th);pick(d=>{a.img=d;save();pnArt();renderArt();toast('Foto actualizada');});});
+  $$('[data-ed]').forEach(b=>b.onclick=()=>openEd(D.art.find(x=>x.id==b.dataset.ed)));
+  $$('[data-rm]').forEach(b=>b.onclick=()=>{const a=D.art.find(x=>x.id==b.dataset.rm);if(confirm('¿Eliminar "'+a.name+'"?')){D.art=D.art.filter(x=>x.id!=b.dataset.rm);save();pnArt();stats();renderArt();toast('Pieza eliminada');}});
+  $$('[data-up]').forEach(b=>b.onclick=()=>mv(+b.dataset.up,-1));
+  $$('[data-dn]').forEach(b=>b.onclick=()=>mv(+b.dataset.dn,1));
+  stats();
+}
+function mv(id,d){
+  const i=D.art.findIndex(a=>a.id===id), j=i+d;
+  if(j<0||j>=D.art.length)return;
+  [D.art[i],D.art[j]]=[D.art[j],D.art[i]];save();pnArt();renderArt();
+}
+function openEd(a){
+  editArt=a||{id:uid(),name:'',cat:'',desc:'',price:0,tag:'',img:'',on:1,_new:!a};
+  $('#eaName').value=editArt.name;$('#eaCat').value=editArt.cat;$('#eaDesc').value=editArt.desc;
+  $('#eaPrice').value=editArt.price;$('#eaTag').value=editArt.tag||'';$('#eaOn').value=editArt.on??1;
+  $('#eaImg').value=(editArt.img||'').startsWith('data:')?'(imagen subida)':editArt.img||'';
+  thumb($('#eaThumb'),editArt.img);
+  $('#edArt').classList.add('on');
+  try{$('#edArt').scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}
+}
+$('#addArt').onclick=()=>openEd(null);
+$('#eaCancel').onclick=()=>{$('#edArt').classList.remove('on');editArt=null;};
+$('#eaThumb').onclick=()=>{if(!editArt)return;pick(d=>{editArt.img=d;$('#eaImg').value='(imagen subida)';thumb($('#eaThumb'),d);});};
+$('#eaSave').onclick=()=>{
+  if(!editArt)return;
+  const n=$('#eaName').value.trim();
+  if(!n){toast('Ponle nombre a la pieza');return;}
+  editArt.name=n;editArt.cat=$('#eaCat').value.trim();editArt.desc=$('#eaDesc').value.trim();
+  editArt.price=+$('#eaPrice').value||0;editArt.tag=$('#eaTag').value;editArt.on=+$('#eaOn').value;
+  const iv=$('#eaImg').value.trim(); if(iv&&iv!=='(imagen subida)') editArt.img=iv;
+  if(editArt._new){delete editArt._new;D.art.push(editArt);}
+  save();$('#edArt').classList.remove('on');editArt=null;pnArt();renderArt();toast('✓ Pieza guardada');
+};
+
+/* --- menú --- */
+function pnMenu(){
+  $('#listMenu').innerHTML=[0,1].map(c=>{
+    const its=D.menu.filter(m=>m.col==c);
+    return `<div style="margin-bottom:8px"><p style="font-family:var(--serif);font-size:1rem;color:var(--verde);margin:12px 0 8px;font-weight:700">${esc(D.menuTitles[c])}</p>
+    ${its.map(m=>`<div class="pn-row" style="margin-bottom:8px">
+      <div style="flex:1;display:grid;grid-template-columns:1.1fr 1.4fr 90px;gap:8px">
+        <input value="${esc(m.name)}" data-mn="${m.id}" placeholder="Nombre" style="padding:8px 10px;border:1.5px solid var(--linea);border-radius:8px;background:#fff;font-size:.86rem">
+        <input value="${esc(m.desc||'')}" data-md="${m.id}" placeholder="Descripción (opcional)" style="padding:8px 10px;border:1.5px solid var(--linea);border-radius:8px;background:#fff;font-size:.86rem">
+        <input value="${m.price}" data-mp="${m.id}" type="number" min="0" placeholder="$" style="padding:8px 10px;border:1.5px solid var(--linea);border-radius:8px;background:#fff;font-size:.86rem">
+      </div>
+      <button class="ic-btn dg" data-mrm="${m.id}" title="Eliminar">🗑</button>
+    </div>`).join('')||'<p class="hint" style="margin:0 0 10px">Sin bebidas en esta columna.</p>'}</div>`;
+  }).join('');
+  const upd=(sel,f)=>$$(sel).forEach(i=>i.oninput=()=>{const m=D.menu.find(x=>x.id==i.dataset[f]);if(!m)return;
+    if(f==='mn')m.name=i.value; if(f==='md')m.desc=i.value; if(f==='mp')m.price=+i.value||0;
+    save();renderMenu();});
+  upd('[data-mn]','mn');upd('[data-md]','md');upd('[data-mp]','mp');
+  $$('[data-mrm]').forEach(b=>b.onclick=()=>{if(confirm('¿Eliminar esta bebida?')){D.menu=D.menu.filter(m=>m.id!=b.dataset.mrm);save();pnMenu();renderMenu();}});
+}
+$('#addM0').onclick=()=>{D.menu.push({id:uid(),col:0,name:'Nueva bebida',desc:'',price:0});save();pnMenu();renderMenu();};
+$('#addM1').onclick=()=>{D.menu.push({id:uid(),col:1,name:'Nueva bebida',desc:'',price:0});save();pnMenu();renderMenu();};
+$('#mcA').oninput=$('#mcB').oninput=()=>{D.menuTitles=[$('#mcA').value,$('#mcB').value];save();pnMenu();renderMenu();};
+
+/* --- fotos --- */
+$('#thHist').onclick=()=>pick(d=>{D.histImg=d;$('#inHist').value='(imagen subida)';thumb($('#thHist'),d);save();renderTx();toast('Foto actualizada');});
+$('#inHist').oninput=()=>{const v=$('#inHist').value;if(v!=='(imagen subida)'){D.histImg=v;thumb($('#thHist'),v);save();renderTx();}};
+function pnGal(){
+  $('#listGal').innerHTML=D.gal.map((g,i)=>`
+    <div class="pn-row">
+      <div class="pn-th" data-gth="${i}">${g.img?`<img src="${esc(g.img)}" onerror="this.parentNode.innerHTML='<span class=\\'cam\\'>📷</span>'">`:'<span class="cam">📷</span>'}</div>
+      <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <input value="${esc(g.cap)}" data-gc="${i}" placeholder="Pie de foto" style="padding:8px 10px;border:1.5px solid var(--linea);border-radius:8px;background:#fff;font-size:.86rem">
+        <input value="${(g.img||'').startsWith('data:')?'(imagen subida)':esc(g.img||'')}" data-gi="${i}" placeholder="fotos/foto.jpg" style="padding:8px 10px;border:1.5px solid var(--linea);border-radius:8px;background:#fff;font-size:.86rem">
+      </div>
+      <button class="ic-btn dg" data-grm="${i}" title="Eliminar">🗑</button>
+    </div>`).join('')||'<p class="hint">Sin fotos en la galería.</p>';
+  $$('[data-gth]').forEach(b=>b.onclick=()=>pick(d=>{D.gal[b.dataset.gth].img=d;save();pnGal();renderGal();toast('Foto actualizada');}));
+  $$('[data-gc]').forEach(i=>i.oninput=()=>{D.gal[i.dataset.gc].cap=i.value;save();renderGal();});
+  $$('[data-gi]').forEach(i=>i.oninput=()=>{if(i.value!=='(imagen subida)'){D.gal[i.dataset.gi].img=i.value;save();renderGal();}});
+  $$('[data-grm]').forEach(b=>b.onclick=()=>{D.gal.splice(+b.dataset.grm,1);save();pnGal();renderGal();});
+}
+$('#addGal').onclick=()=>{if(D.gal.length>=6){toast('Máximo 6 fotos en la galería');return;}D.gal.push({img:'',cap:'Nueva foto'});save();pnGal();renderGal();};
+
+/* --- respaldo --- */
+$('#pnExport').onclick=()=>{
+  applyPanel();save();
+  const b=new Blob([JSON.stringify(D,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);
+  a.download='cafe-del-toro-respaldo-'+new Date().toISOString().slice(0,10)+'.json';a.click();
+  toast('Respaldo descargado');
+};
+$('#pnImport').onclick=()=>{$('#jsonPick').value='';$('#jsonPick').click();};
+$('#jsonPick').onchange=e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{try{D=deep(clone(DEF),JSON.parse(r.result));save();renderAll();fillPanel();toast('✓ Respaldo restaurado');}catch(x){toast('El archivo no es válido');}};
+  r.readAsText(f);
+};
+$('#pnReset').onclick=()=>{
+  if(confirm('¿Restablecer TODO el contenido original? Se perderán tus cambios.')){
+    localStorage.removeItem(KEY);D=clone(DEF);renderAll();fillPanel();toast('Contenido restablecido');
+  }
+};
+
+/* ==================== GO ==================== */
+renderAll();obs();
+</script>
+</body>
+</html>
